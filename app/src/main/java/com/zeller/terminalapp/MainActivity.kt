@@ -19,26 +19,32 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     override fun onClick(view: View?) {
-        var amt = 0f
-        if (view?.id == R.id.withdrawButton) {
-            val balance = MainViewModel.balance
-            if (!binding.amountInput.text.isNullOrEmpty()) {
-                amt = binding.amountInput.text.toString().toFloat()
-                if (balance > amt) {
-                    MainViewModel.balance -= amt
-                    binding.balance.text = MainViewModel.balance.toString()
-                    MainViewModel.transactions.addTransaction(Transactions(isDeposit = false, amount = amt))
-                } else {
-                    Toast.makeText(this, "Not enough balance", Toast.LENGTH_LONG).show()
+        val amt: Float
+        when(view?.id) {
+            R.id.withdrawButton -> {
+                val balance = MainViewModel.balance
+                if (!binding.amountInput.text.isNullOrEmpty()) {
+                    amt = binding.amountInput.text.toString().toFloat()
+                    if (balance >= amt) {
+                        MainViewModel.balance -= amt
+                        binding.balance.text = MainViewModel.balance.toString()
+                        MainViewModel.transactions.addTransaction(Transactions(isDeposit = false, amount = amt))
+                    } else {
+                        Toast.makeText(this, R.string.not_enough_balance, Toast.LENGTH_LONG).show()
+                    }
                 }
             }
-
-        } else if (view?.id == R.id.depositButton) {
-            if (!binding.amountInput.text.isNullOrEmpty()) {
-                amt = binding.amountInput.text.toString().toFloat()
-                MainViewModel.balance += amt
-                binding.balance.text = MainViewModel.balance.toString()
-                MainViewModel.transactions.addTransaction(Transactions(isDeposit = true, amount = amt))
+            R.id.depositButton -> {
+                if (!binding.amountInput.text.isNullOrEmpty()) {
+                    amt = binding.amountInput.text.toString().toFloat()
+                    if (amt == 0f) {
+                        Toast.makeText(this, R.string.deposit_at_least, Toast.LENGTH_LONG).show()
+                        return
+                    }
+                    MainViewModel.balance += amt
+                    binding.balance.text = MainViewModel.balance.toString()
+                    MainViewModel.transactions.addTransaction(Transactions(isDeposit = true, amount = amt))
+                }
             }
         }
     }
