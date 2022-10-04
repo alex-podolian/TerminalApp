@@ -2,4 +2,6 @@
     <string name="app_name">TerminalApp</string>
     <string name="not_enough_balance">Not enough balance</string>
     <string name="enter_valid_number">Please enter valid number</string>
+    <string name="withdraw">Withdraw</string>
+    <string name="deposit">Deposit</string>
 </resources>
