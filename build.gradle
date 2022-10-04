@@ -3,6 +3,7 @@ buildscript {
     ext {
         kotlin_version = "1.7.10"
         coroutines_version = "1.6.4"
+        core_ktx_version = "1.9.0"
     }
     repositories {
         google()
