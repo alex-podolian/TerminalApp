@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">TerminalApp</string>
     <string name="not_enough_balance">Not enough balance</string>
-    <string name="deposit_at_least">Please deposit at least 0.01</string>
+    <string name="enter_valid_number">Please enter valid number</string>
 </resources>

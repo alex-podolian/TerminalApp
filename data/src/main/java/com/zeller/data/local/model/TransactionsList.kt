@@ -1,4 +1,4 @@
-package com.zeller.terminalapp
+package com.zeller.data.local.model
 
 class TransactionsList {
     private val transactionsList: MutableList<Transactions> = mutableListOf()
