@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'kotlin-kapt'
+    id 'io.realm.kotlin'
 }
 
 android {
@@ -52,8 +53,11 @@ dependencies {
     implementation "com.google.dagger:dagger:$dagger_version"
     kapt "com.google.dagger:dagger-compiler:$dagger_version"
 
+    implementation 'io.realm.kotlin:library-base:1.1.0'
+
     implementation project(path: ':domain')
     implementation project(path: ':data')
+    implementation project(path: ':database')
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'

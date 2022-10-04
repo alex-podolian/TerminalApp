@@ -1,37 +1,46 @@
 package com.zeller.data.repository
 
-import com.zeller.data.local.model.Transactions
-import com.zeller.data.local.model.TransactionsList
-import com.zeller.domain.model.OperationResult
+import com.zeller.data.local.model.LocalBalance
+import com.zeller.data.utils.EnterValidNumberException
+import com.zeller.data.utils.NotEnoughBalanceException
+import com.zeller.domain.model.Balance
 import com.zeller.domain.repository.DataRepository
 import javax.inject.Inject
 
-class DataRepositoryImpl @Inject constructor() : DataRepository {
+class DataRepositoryImpl @Inject constructor(
+    private val localSource: LocalSource,
+) : DataRepository {
 
     private var balance = 0f
-    var transactions: TransactionsList = TransactionsList()
 
-    override suspend fun deposit(amount: Float): OperationResult<Any> {
-        return if (amount == 0f) {
-            OperationResult.EnterValidNumber
+    override suspend fun deposit(amount: Float): Balance {
+        return if (amount < 0.01f) {
+            throw EnterValidNumberException()
         } else {
             balance += amount
-            transactions.addTransaction(Transactions(isDeposit = true, amount = amount))
-            OperationResult.Success(balance)
+            localSource.persistBalance(LocalBalance(balance = balance))
+            Balance(balance = balance)
         }
     }
 
-    override suspend fun withdraw(amount: Float): OperationResult<Any> {
+    override suspend fun withdraw(amount: Float): Balance {
         return if (balance >= amount && amount != 0f) {
             balance -= amount
-            transactions.addTransaction(Transactions(isDeposit = false, amount = amount))
-            OperationResult.Success(balance)
+            localSource.persistBalance(LocalBalance(balance = balance))
+            Balance(balance = balance)
         } else {
-            OperationResult.EnterValidNumber
+            if (balance <= amount) {
+                throw NotEnoughBalanceException()
+            } else {
+                throw EnterValidNumberException()
+            }
         }
     }
 
-    override suspend fun loadBalance(): OperationResult<Any> {
-        return OperationResult.Success(balance)
+    override suspend fun loadBalance(): Balance {
+        localSource.retrieveBalance()?.balance?.let {
+            balance = it
+        }
+        return Balance(balance = balance)
     }
 }

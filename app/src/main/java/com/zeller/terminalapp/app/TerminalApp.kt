@@ -1,4 +1,4 @@
-package com.zeller.terminalapp
+package com.zeller.terminalapp.app
 
 import android.app.Application
 import com.zeller.terminalapp.di.AppComponent

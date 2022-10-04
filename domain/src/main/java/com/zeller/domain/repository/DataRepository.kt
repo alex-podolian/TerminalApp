@@ -1,9 +1,9 @@
 package com.zeller.domain.repository
 
-import com.zeller.domain.model.OperationResult
+import com.zeller.domain.model.Balance
 
 interface DataRepository {
-    suspend fun deposit(amount: Float): OperationResult<Any>
-    suspend fun withdraw(amount: Float) : OperationResult<Any>
-    suspend fun loadBalance() : OperationResult<Any>
+    suspend fun deposit(amount: Float): Balance
+    suspend fun withdraw(amount: Float) : Balance
+    suspend fun loadBalance() : Balance
 }

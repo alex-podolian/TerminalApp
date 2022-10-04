@@ -1,10 +1,12 @@
-package com.zeller.terminalapp
+package com.zeller.terminalapp.presentation
 
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
+import com.zeller.terminalapp.R
+import com.zeller.terminalapp.app.TerminalApp
 import com.zeller.terminalapp.databinding.ActivityMainBinding
 import javax.inject.Inject
 
@@ -25,8 +27,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         setupViewModel()
     }
 
-    private val balanceObserver = Observer<Float?> { balance ->
-        binding.balance.text = balance.toString()
+    private val balanceObserver = Observer<String?> { balance ->
+        binding.balance.text = balance
     }
 
     private val errorObserver = Observer<String?> { message ->

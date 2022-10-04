@@ -1,6 +1,6 @@
 package com.zeller.data.local.model
 
-class Transactions(
+data class LocalTransaction(
     val amount: Float,
     val isDeposit: Boolean
 )

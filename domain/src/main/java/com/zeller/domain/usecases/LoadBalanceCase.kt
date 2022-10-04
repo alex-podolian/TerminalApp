@@ -1,8 +1,8 @@
 package com.zeller.domain.usecases
 
-import com.zeller.domain.model.OperationResult
+import com.zeller.domain.model.Balance
 import kotlinx.coroutines.flow.Flow
 
 interface LoadBalanceCase {
-    suspend operator fun invoke(): Flow<OperationResult<Any>>
+    suspend operator fun invoke(): Flow<Balance?>
 }
