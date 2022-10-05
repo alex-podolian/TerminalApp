@@ -1,6 +1,7 @@
-package com.zeller.terminalapp.presentation
+package com.zeller.terminalapp.presentation.main
 
 import android.app.Application
+import android.text.Editable
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -44,19 +45,29 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    fun invokeDeposit(amount: Float) {
-        viewModelScope.launch {
-            depositCase(amount).collect {
-                handleResult(it)
+    fun invokeDeposit(amount: Editable) {
+        if (amount.isNotEmpty()) {
+            viewModelScope.launch {
+                depositCase(amount.toString().toFloat()).collect {
+                    handleResult(it)
+                }
             }
+        } else {
+            _errorMessage.value =
+                getApplication<TerminalApp>().getString(R.string.enter_valid_number)
         }
     }
 
-    fun invokeWithdraw(amount: Float) {
-        viewModelScope.launch {
-            withdrawCase(amount).collect {
-                handleResult(it)
+    fun invokeWithdraw(amount: Editable) {
+        if (amount.isNotEmpty()) {
+            viewModelScope.launch {
+                withdrawCase(amount.toString().toFloat()).collect {
+                    handleResult(it)
+                }
             }
+        } else {
+            _errorMessage.value =
+                getApplication<TerminalApp>().getString(R.string.enter_valid_number)
         }
     }
 
@@ -69,12 +80,14 @@ class MainViewModel @Inject constructor(
                 _balance.value = roundedBalance
             }
             is OperationResult.Failure -> {
-                when(result.exception) {
+                when (result.exception) {
                     is NotEnoughBalanceException -> {
-                        _errorMessage.value = getApplication<TerminalApp>().getString(R.string.not_enough_balance)
+                        _errorMessage.value =
+                            getApplication<TerminalApp>().getString(R.string.not_enough_balance)
                     }
                     is EnterValidNumberException -> {
-                        _errorMessage.value = getApplication<TerminalApp>().getString(R.string.enter_valid_number)
+                        _errorMessage.value =
+                            getApplication<TerminalApp>().getString(R.string.enter_valid_number)
                     }
                     else -> {
                         _errorMessage.value = result.exception?.message

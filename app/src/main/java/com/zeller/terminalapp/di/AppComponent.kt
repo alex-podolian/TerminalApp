@@ -5,7 +5,8 @@ import android.content.Context
 import com.zeller.data.di.DataModule
 import com.zeller.database.di.DatabaseModule
 import com.zeller.network.di.NetworkModule
-import com.zeller.terminalapp.presentation.MainActivity
+import com.zeller.terminalapp.presentation.main.MainActivity
+import com.zeller.terminalapp.presentation.transactions.TransactionsActivity
 import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton
@@ -21,4 +22,5 @@ interface AppComponent {
     }
 
     fun inject(activity: MainActivity)
+    fun inject(activity: TransactionsActivity)
 }

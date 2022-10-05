@@ -1,5 +1,6 @@
-package com.zeller.terminalapp.presentation
+package com.zeller.terminalapp.presentation.main
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -8,6 +9,7 @@ import androidx.lifecycle.Observer
 import com.zeller.terminalapp.R
 import com.zeller.terminalapp.app.TerminalApp
 import com.zeller.terminalapp.databinding.ActivityMainBinding
+import com.zeller.terminalapp.presentation.transactions.TransactionsActivity
 import javax.inject.Inject
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
@@ -23,6 +25,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         binding = ActivityMainBinding.inflate(layoutInflater)
         binding.depositButton.setOnClickListener(this)
         binding.withdrawButton.setOnClickListener(this)
+        binding.showTransactionsButton.setOnClickListener(this)
         setContentView(binding.root)
         setupViewModel()
     }
@@ -41,15 +44,21 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     override fun onClick(view: View?) {
-        binding.amountInput.text.apply {
-            if (!this.isNullOrEmpty()) {
-                when (view?.id) {
-                    R.id.withdrawButton -> {
-                        viewModel.invokeWithdraw(this.toString().toFloat())
-                    }
-                    R.id.depositButton -> {
-                        viewModel.invokeDeposit(this.toString().toFloat())
-                    }
+        binding.amountInput.text?.apply {
+            when (view?.id) {
+                R.id.withdrawButton -> {
+                    viewModel.invokeWithdraw(this)
+                }
+                R.id.depositButton -> {
+                    viewModel.invokeDeposit(this)
+                }
+                R.id.showTransactionsButton -> {
+                    this@MainActivity.startActivity(
+                        Intent(
+                            this@MainActivity,
+                            TransactionsActivity::class.java
+                        )
+                    )
                 }
             }
         }

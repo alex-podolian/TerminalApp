@@ -3,10 +3,12 @@ package com.zeller.data.di
 import com.zeller.data.repository.DataRepositoryImpl
 import com.zeller.data.usecases.DepositCaseImpl
 import com.zeller.data.usecases.LoadBalanceCaseImpl
+import com.zeller.data.usecases.LoadTransactionsCaseImpl
 import com.zeller.data.usecases.WithdrawCaseImpl
 import com.zeller.domain.repository.DataRepository
 import com.zeller.domain.usecases.DepositCase
 import com.zeller.domain.usecases.LoadBalanceCase
+import com.zeller.domain.usecases.LoadTransactionsCase
 import com.zeller.domain.usecases.WithdrawCase
 import dagger.Binds
 import dagger.Module
@@ -27,4 +29,7 @@ abstract class DataModule {
 
     @Binds
     abstract fun provideLoadBalanceCase(loadBalanceCase: LoadBalanceCaseImpl): LoadBalanceCase
+
+    @Binds
+    abstract fun provideLoadTransactionsCase(loadBalanceCase: LoadTransactionsCaseImpl): LoadTransactionsCase
 }
