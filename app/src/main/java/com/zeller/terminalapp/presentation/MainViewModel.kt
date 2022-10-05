@@ -38,7 +38,7 @@ class MainViewModel @Inject constructor(
 
     private fun loadBalance() {
         viewModelScope.launch {
-            loadBalanceCase().collect {
+            loadBalanceCase("balance").collect {
                 _balance.value = it?.balance.toString()
             }
         }

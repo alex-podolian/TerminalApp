@@ -4,5 +4,5 @@ import com.zeller.domain.model.Balance
 import kotlinx.coroutines.flow.Flow
 
 interface LoadBalanceCase {
-    suspend operator fun invoke(): Flow<Balance?>
+    suspend operator fun invoke(id: String): Flow<Balance?>
 }

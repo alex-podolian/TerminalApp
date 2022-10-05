@@ -1,26 +1,19 @@
 plugins {
-    id 'com.android.application'
-    id 'kotlin-android'
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
-    id 'io.realm.kotlin'
 }
 
 android {
-    namespace 'com.zeller.terminalapp'
-    compileSdkVersion 33
+    namespace 'com.zeller.network'
+    compileSdk 33
 
     defaultConfig {
-        applicationId "com.zeller.terminalapp"
-        minSdkVersion 22
-        targetSdkVersion 33
-        versionCode 1
-        versionName "1.0"
+        minSdk 21
+        targetSdk 33
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-    }
-
-    buildFeatures {
-        viewBinding true
+        consumerProguardFiles "consumer-rules.pro"
     }
 
     buildTypes {
@@ -40,16 +33,9 @@ android {
 
 dependencies {
 
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation "androidx.core:core-ktx:$core_ktx_version"
-    implementation 'androidx.appcompat:appcompat:1.5.1'
-    implementation 'com.google.android.material:material:1.6.1'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    implementation "io.github.vicmikhailau:MaskedEditText:4.0.7"
 
-    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.5.1'
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1'
-    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.5.1'
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4"
 
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
@@ -60,12 +46,7 @@ dependencies {
     implementation "com.google.dagger:dagger:$dagger_version"
     kapt "com.google.dagger:dagger-compiler:$dagger_version"
 
-    implementation 'io.realm.kotlin:library-base:1.1.0'
-
-    implementation project(path: ':domain')
     implementation project(path: ':data')
-    implementation project(path: ':database')
-    implementation project(path: ':network')
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'

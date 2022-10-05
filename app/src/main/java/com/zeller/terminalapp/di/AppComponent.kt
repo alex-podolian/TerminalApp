@@ -4,6 +4,7 @@ import android.app.Application
 import android.content.Context
 import com.zeller.data.di.DataModule
 import com.zeller.database.di.DatabaseModule
+import com.zeller.network.di.NetworkModule
 import com.zeller.terminalapp.presentation.MainActivity
 import dagger.BindsInstance
 import dagger.Component
@@ -11,7 +12,7 @@ import javax.inject.Singleton
 
 
 @Singleton
-@Component(modules = [DataModule::class, DatabaseModule::class])
+@Component(modules = [DataModule::class, DatabaseModule::class, NetworkModule::class])
 interface AppComponent {
 
     @Component.Factory

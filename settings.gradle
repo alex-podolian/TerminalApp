@@ -3,3 +3,4 @@ rootProject.name = "TerminalApp"
 include ':domain'
 include ':data'
 include ':database'
+include ':network'

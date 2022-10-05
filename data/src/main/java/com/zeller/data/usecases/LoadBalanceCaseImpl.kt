@@ -10,7 +10,7 @@ import javax.inject.Inject
 class LoadBalanceCaseImpl @Inject constructor(private val dataRepository: DataRepository) :
     LoadBalanceCase {
 
-    override suspend fun invoke(): Flow<Balance> = flow {
-        emit(dataRepository.loadBalance())
+    override suspend fun invoke(id: String): Flow<Balance> = flow {
+        emit(dataRepository.loadBalance(id))
     }
 }
